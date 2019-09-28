@@ -5,6 +5,12 @@ work_dir=$2
 binary_url=$3
 ca_name=${org_name}'ca'
 
+if [[ $(uname -m) == 's390x' ]]; then
+    ARCH='s390x'
+else
+    ARCH='amd64'
+fi
+
 source $work_dir'/apis.ini' || true
 
 
@@ -23,11 +29,11 @@ fi
 
 if [ ! -f $work_dir'/bin/cloudctl' ]; then
 
-  curl -kLo cloudctl-linux-amd64-v3.2.0-634 https://$icp_url/api/cli/cloudctl-linux-amd64
+  curl -kLo cloudctl-linux-${ARCH}-v3.2.0-634 https://$icp_url/api/cli/cloudctl-linux-${ARCH}
   mv cloudctl* $work_dir'/bin/cloudctl'
   chmod +x $work_dir'/bin/cloudctl'
 
-  curl -kLo kubectl-linux-amd64-v1.13.5 https://$icp_url/api/cli/kubectl-linux-amd64
+  curl -kLo kubectl-linux-${ARCH}-v1.13.5 https://$icp_url/api/cli/kubectl-linux-${ARCH}
   mv kubectl* $work_dir'/bin/kubectl'
   chmod +x $work_dir'/bin/kubectl'
 fi

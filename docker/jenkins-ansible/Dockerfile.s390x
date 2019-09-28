@@ -1,7 +1,7 @@
 FROM jenkins-s390x:latest
 USER root
 ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
-ADD https://storage.googleapis.com/kubernetes-release/release/v1.11.2/bin/linux/amd64/kubectl /usr/local/bin/kubectl
+ADD https://storage.googleapis.com/kubernetes-release/release/v1.11.2/bin/linux/s390x/kubectl /usr/local/bin/kubectl
 ADD security.groovy /usr/share/jenkins/ref/init.groovy.d/security.groovy
 ADD plugins.txt /usr/share/jenkins/ref/plugins.txt
 ADD jenkins.ini /usr/share/hfrd/jenkins.ini

@@ -9,16 +9,16 @@ if [[ $4 == "false" ]]; then
 fi
 
 if [[ $(uname -m) == 's390x' ]]; then
-    IMAGE_ARCH='-s390x'
-    HTTPD_IMAGE_NAME='s390x/httpd:2.4.34-alpine'
-    COUCHDB_IMAGE_NAME='hfrd/couchdb-s390x'
+    IMAGE_ARCH='s390x'
+    HTTPD_IMAGE_NAME="${IMAGE_ARCH}/httpd:2.4.34-alpine"
+    COUCHDB_IMAGE_NAME="gmoney23/couchdb-${IMAGE_ARCH}:2.3.1"
 else
     IMAGE_ARCH=''
     HTTPD_IMAGE_NAME='httpd:2.4.34-alpine'
     COUCHDB_IMAGE_NAME='couchdb'
 fi
 
-rootdir=~/hfrd
+rootdir=~/git/src/hfrd
 
 function printHelp () {
     echo "Usage: ./hfrd.sh <start {public ip} {configFile path} | stop >"
@@ -131,7 +131,7 @@ function starthfrd() {
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v $rootdir/jenkins:/var/jenkins_home \
             -v $rootdir/contentRepo:/opt/hfrd/contentRepo \
-            -p 8080:8080 -p 50000:50000 hfrd/jenkins:latest
+            -p 8080:8080 -p 50000:50000 hfrd/jenkins-${IMAGE_ARCH}:latest
 
         while : ; do
           res=$(docker logs jenkins 2>&1 | grep 'Jenkins is fully up and running')
@@ -179,7 +179,7 @@ endmsg
     docker run -d --rm --name hfrdserver \
       -v $rootdir/contentRepo:/opt/hfrd/contentRepo \
       -v $rootdir/var:/opt/hfrd/var \
-      -p 9090:8080 hfrd/server:latest
+      -p 9090:8080 hfrd/server:s390x-latest
 
     echo "API server http://${PUBLIC_IP}:9090"
     echo "Jenkins server http://${PUBLIC_IP}:8080"
