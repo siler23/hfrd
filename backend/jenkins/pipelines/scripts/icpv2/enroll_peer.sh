@@ -38,7 +38,7 @@ if [ ! -f $work_dir'/bin/cloudctl' ]; then
   chmod +x $work_dir'/bin/kubectl'
 fi
 
-export PATH=$work_dir/bin:$PATH
+export PATH=$PATH:$work_dir/bin
 
 cloudctl login -a https://$icp_url --skip-ssl-validation -u $icp_user -p $icp_password -n $icp_namespace
 
