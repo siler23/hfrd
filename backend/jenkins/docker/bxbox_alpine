@@ -25,8 +25,8 @@ RUN set -eux; \
 #    && cd /var/cache/apk && tar -xf /var/cache/apk/bx.tar.gz \
 #    && chmod 755 /var/cache/apk/Bluemix_CLI/install_bluemix_cli \
 #    && /var/cache/apk/Bluemix_CLI/install_bluemix_cli \
-#    && curl https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric-ca/hyperledger-fabric-ca/linux-amd64-1.1.0/hyperledger-fabric-ca-linux-amd64-1.1.0.tar.gz | tar xz \
-#	&& mv bin/fabric-ca-client /usr/local/bin \
+    && curl https://nexus.hyperledger.org/content/repositories/releases/org/hyperledger/fabric-ca/hyperledger-fabric-ca/linux-s390x-1.4.1/hyperledger-fabric-ca-linux-s390x-1.4.1.tar.gz | tar xz \
+    && mv bin/fabric-ca-client /usr/local/bin \
 #    && mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2 \
     && addgroup -g ${gid} ${user} \
     && adduser -D -u ${uid} -G ${user} ${user} \
